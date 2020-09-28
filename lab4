@@ -1,0 +1,224 @@
+#include <iostream>
+#include<string>
+using namespace std;
+class Plant
+{
+private:
+    int lifespan;
+    int weight;
+public:
+
+    Plant(int lifespan = 1, int weight = 50) : lifespan(lifespan), weight(weight)
+    {
+    }
+    ~Plant() = default;
+    void outputPlant()
+    {
+        cout << "Продолжительность жизни растения (в годах):" <<lifespan<<endl;
+        cout << "Высота побега растения:" << weight<<endl;
+    }
+};
+class HomePlant:private Plant
+{
+private:
+    string type;//тип удобрений
+    string watering;//режим полива
+public:
+    HomePlant(string type="Азотные", string watering="Умеренный", int lifespan = 1, int weight = 50) : type(type), watering(watering), Plant(lifespan,weight)
+    {
+    }
+    ~HomePlant() = default;
+    void outputHomePlant()
+    {
+        outputPlant();
+        cout << "Тип удобрений:" << type << endl;
+        cout << "Тип полива:" << watering << endl;
+    }
+};
+class WildPlant : private Plant
+{
+private:
+    string climate;//климатический пояс
+    string fit;//присп. к изм. условиям
+public:
+    WildPlant(string climate = "Умеренный", string fit = "Есть", int lifespan = 1, int weight = 50) : climate(climate), fit(fit), Plant(lifespan, weight)
+    {
+    }
+    ~WildPlant() = default;
+    void outputWildPlant()
+    {
+        cout << "Тип климата:" <<climate<< endl ;
+        cout << "Приспособляемость к изменению климата:" <<fit<< endl;
+    }
+};
+class Homewatermellon :private HomePlant
+{
+private:
+    string sort;//сорт
+    string seed;//наличие семян
+public:
+    Homewatermellon(string sort = "Умеренный", string seed = "Есть", string type = "Азотные", string watering = "Умеренный", int lifespan = 1, int weight = 50) : sort(sort), seed(seed), HomePlant(type,watering, lifespan, weight)
+    {
+    }
+    ~Homewatermellon() = default;
+    void outputHomewatermellon()
+    {
+        outputHomePlant();
+        cout << "Сорт:" << sort << endl;
+        cout << "Наличие семян:" << seed<<endl;
+    }
+};
+class Wildwatermellon : private WildPlant
+{
+private:
+    string pe;//качество плода
+    string internals;//противоопух.
+public:
+    Wildwatermellon(string pe = "Съедобный", string internals = "Есть", string climate = "Умеренный", string fit = "Есть", int lifespan = 1, int weight = 50) : pe(pe), internals(internals), WildPlant( climate, fit,lifespan, weight )
+    {
+    }
+    ~Wildwatermellon() = default;
+    void outputWildwatermellon()
+    {
+        outputWildPlant();
+        cout << "Качество плода:" << pe << endl;
+        cout << "Противоопухолевые свойства:" << internals << endl;
+    }
+};
+class yellowwatermellon : private Wildwatermellon, private Homewatermellon
+{
+private:
+    int price;
+public:
+    yellowwatermellon(int price=1, string sort = "Умеренный", string seed = "Есть", string type = "Азотные", string watering = "Умеренный", string pe = "Съедобный", string internals = "Есть", string climate = "Умеренный", string fit = "Есть", int lifespan = 1, int weight = 50): price(price), Wildwatermellon(pe,internals,climate,fit,lifespan,weight),Homewatermellon(sort,seed,type,watering,lifespan,weight)
+    {}
+    ~yellowwatermellon() = default;
+    void setyellowwatermellon()
+    {
+        outputHomewatermellon();
+        outputWildwatermellon();
+        cout << "Цена:" << price << endl;
+    }
+
+};
+int main()
+{
+    int a, b, c, d,n,e,f,g,k,m;
+    string s,s1,s2,s3,s4,s5,s6,s7,s8,s9;
+    bool fail = true;
+    setlocale(LC_ALL, "Russian");
+    do
+    {
+        cout << "Продолжительность жизни растения (в годах):" << endl;
+        cin >> a;
+        if (cin.fail()) cout << "ERROR!!!";
+        else fail = false;
+        cin.clear();
+        cin.ignore(cin.rdbuf()->in_avail());
+    } while (a < 0 || fail);
+    do
+    {
+        cout << "Высота побега растения:" << endl;
+        cin >> b;
+        if (cin.fail()) cout << "ERROR!!!";
+        else fail = false;
+        cin.clear();
+        cin.ignore(cin.rdbuf()->in_avail());
+    } while (b < 0 || fail);
+  
+    do
+    {
+        cout << "Тип удобрений:" << endl << "1-Азотные" << endl << "2-Калийные" << endl << "3-Известковые" << endl;
+        cin >> c;
+        if (cin.fail()) cout << "ERROR!!!";
+        else fail = false;
+        cin.clear();
+        cin.ignore(cin.rdbuf()->in_avail());
+    } while (c < 0 || c>3 || fail);
+    if (c == 1)s = "Азотные";
+    if (c == 2)s = "Калийные";
+    if (c == 3)s = "Известковые";
+    do
+    {
+        cout << "Режим полива:" << endl << "1-Усиленный" << endl << "2-Умеренный" << endl << "3-Слабый" << endl;
+        cin >> d;
+        if (cin.fail()) cout << "ERROR!!!";
+        else fail = false;
+        cin.clear();
+        cin.ignore(cin.rdbuf()->in_avail());
+    } while (d < 0 || d>3 || fail);
+    if (d == 1)s1 = "Усиленный";
+    if (d == 2)s1 = "Умеренный";
+    if (d == 3)s1 = "Слабый";
+    do
+    {
+        cout << "Тип климата:" << endl << "1-Умеренный" << endl << "2-Полярный" << endl << "3-Тропический" << endl << "4-Экваториальный" << endl;
+        cin >> n;
+        if (cin.fail()) cout << "ERROR!!!";
+        else fail = false;
+        cin.clear();
+        cin.ignore(cin.rdbuf()->in_avail());
+    } while (n < 0 || n>4 || fail);
+    if (n == 1)s3 = "Умеренный";
+    if (n == 2)s3 = "Полярный";
+    if (n == 3)s3 = "Тропический";
+    if (n == 4)s3 = "Экваториальный";
+    do
+    {
+        cout << "Приспособляемость к изменению климата:" << endl << "1-Есть" << endl << "2-Отсутствует" << endl;
+        cin >> e;
+        if (cin.fail()) cout << "ERROR!!!";
+        else fail = false;
+        cin.clear();
+        cin.ignore(cin.rdbuf()->in_avail());
+    } while (e < 0 || e>2 || fail);
+    if (e == 1)s4 = "Есть";
+    if (e == 2)s4 = "Отсутствует";
+    cout << "Сорт:" << endl;
+    getline(cin, s5);
+    do
+    {
+        cout << "Семена:" << endl << "1-Есть" << endl << "2-Отсутствуют" << endl;
+        cin >> f;
+        if (cin.fail()) cout << "ERROR!!!";
+        else fail = false;
+        cin.clear();
+        cin.ignore(cin.rdbuf()->in_avail());
+    } while (f < 0 || f>2 || fail);
+    if (f == 1)s6 = "Есть";
+    if (f == 2)s6 = "Отсутствуют";
+    do
+    {
+        cout << "Качество плода:" << endl << "1-Съедобный" << endl << "2-Несъедобный" << endl;
+        cin >> m;
+        if (cin.fail()) cout << "ERROR!!!";
+        else fail = false;
+        cin.clear();
+        cin.ignore(cin.rdbuf()->in_avail());
+    } while (m < 0 || m>2 || fail);
+    if (m == 1)s7 = "Съедобный";
+    if (m == 2)s7 = "Несъедобный";
+    do
+    {
+        cout << "Противоопухолевые свойства:" << endl << "1-Есть" << endl << "2-Отсутствуют" << endl;
+        cin >> g;
+        if (cin.fail()) cout << "ERROR!!!";
+        else fail = false;
+        cin.clear();
+        cin.ignore(cin.rdbuf()->in_avail());
+    } while (g < 0 || g>2 || fail);
+    if (g == 1)s8 = "Есть";
+    if (g == 2)s8 = "Отсутствуют";
+    do
+    {
+        cout << "Цена рассады:" << endl;
+        cin >> k;
+        if (cin.fail()) cout << "ERROR!!!";
+        else fail = false;
+        cin.clear();
+        cin.ignore(cin.rdbuf()->in_avail());
+    } while (k < 0 || fail);
+    yellowwatermellon y(k, s5, s6, s, s1, s7, s8, s3, s4, a, b),l;
+    y.setyellowwatermellon();
+    l.setyellowwatermellon();
+}
